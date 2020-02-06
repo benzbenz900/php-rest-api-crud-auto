@@ -7,9 +7,9 @@ Edit Config in File /application/config/config.php
 $config['base_url'] = 'http://youdomain.com/';
 ...
 $config['db_host'] = 'localhost';
-$config['db_name'] = 'admin_krothco';
-$config['db_username'] = 'admin_krothco';
-$config['db_password'] = 'smFkLa7N';
+$config['db_name'] = 'db_name';
+$config['db_username'] = 'db_username';
+$config['db_password'] = 'db_password';
 ```
 ## How To Use Rest API CRUD
 ```
