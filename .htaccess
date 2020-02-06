@@ -1,0 +1,13 @@
+RewriteEngine On
+RewriteBase /
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . index.php [L]
+
+
+ErrorDocument 400 /error/index/400
+ErrorDocument 401 /error/index/401
+ErrorDocument 403 /error/index/403
+ErrorDocument 404 /error/index/404
+ErrorDocument 500 /error/index/500
