@@ -50,7 +50,7 @@ http://youdomain.com/api/v1/tables/?where=id;eq;1
     "data": false
 }
 ```
-## Prarams
+## Params GET
 ```
 ?where=
 "{id};eq;{1}" -> "="
@@ -71,6 +71,9 @@ ex: ?where=id;eq;0;
 ";00;" -> ""
 ex: ?where=id;eq;00;
 
+```
+## Operator
+```
 ";like;" -> "LIKE"
 ex: ?where=name;like;Google
 
@@ -89,6 +92,9 @@ ex: ?where=price;more;100
 ";less;" -> "<"
 ex: ?where=price;less;100
 
+```
+## Order
+```
 ?order=
 "{id};asc" -> "Ascending"
 ex: ?order=id;asc
@@ -99,7 +105,9 @@ ex: ?order=id;desc
 ";rand" -> "Ramdom"
 ex: ?order=;rand
 
-GET Prarams
+```
+## Get Params
+```
 "?limit=" -> "int Or all"
 ex: ?limit=10 or ?limit=all
 
@@ -115,7 +123,10 @@ ex: ?value=id,name,price
 "?in=" -> "{1},{2},{3}"
 ex: ?in=1,2,3
 
-POST Prarams
+```
+## Post Params
+```
+POST Params
 "action" -> "add Or update Or delete"
 
 ```
