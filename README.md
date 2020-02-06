@@ -18,7 +18,38 @@ http://youdomain.com/api/v1/tables/id/1
 http://youdomain.com/api/v1/tables/username/name
 http://youdomain.com/api/v1/tables/?where=id;eq;1
 ```
-
+## Response Data
+```
+{
+    "status": true,
+    "data": [
+        {
+            "id": "4",
+            "name": "Croco Oil Facia Foam",
+            "cover": "803df0px1yko48k8so.jpg",
+            "detail": "Test",
+            "image1": "tuso3451fq8kg8ok04.jpg",
+            "image2": "j2xierf5s74084kgco.jpg",
+            "image3": "2ax2zkvxb39cwwowos.jpg",
+            "image4": "fjicvup3gzcwwk4w8w.jpg",
+            "image5": "2fohv5ob0tq88ksss4.jpg",
+            "image6": "8l9ikp3u3yosskgccc.jpg",
+            "image7": "ffyaucl5lfwo0cs4wg.jpg",
+            "image8": "9xfa2tl04co4csg8k8.jpg",
+            "image9": "57dph0t8ob4848w8s0.jpg",
+            "image10": "",
+            "price": "0.00"
+        }
+    ]
+}
+```
+### Response No Data
+```
+{
+    "status": false,
+    "data": false
+}
+```
 ## Prarams
 ```
 ?where=
