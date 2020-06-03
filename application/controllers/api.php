@@ -10,23 +10,21 @@ class api extends Controller {
 	function __construct()
 	{
 
-		if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-			header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
-			header('Access-Control-Allow-Credentials: true');
-			header('Access-Control-Allow-Methods: POST, GET');
-			header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
-			header('Access-Control-Max-Age: 1728000');
-			header('Content-Length: 0');
-			header('Content-Type: text/plain');
-			die();
-		}
-
 		if (isset($_SERVER['HTTP_ORIGIN'])) {
 			header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
 			header('Access-Control-Allow-Credentials: true');
-			header("Access-Control-Allow-Methods: GET, POST");
-			header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
-			header('Access-Control-Max-Age: 1728000');
+			header('Access-Control-Max-Age: 86400');
+		}
+		
+		if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+		
+			if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']))
+				header("Access-Control-Allow-Methods: GET, POST, OPTIONS");         
+		
+			if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']))
+				header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
+		
+			exit(0);
 		}
 		
 		$this->database = $this->loadModel('database');
@@ -36,10 +34,9 @@ class api extends Controller {
 		$this->database->no_cache(true);
 
 		$this->where = (isset($_GET['where'])) ? str_replace(
-			array(';eq;',';neq;',';and;',';or;',';0;',';00;',';like;',';ap;',';moreeq;',';lesseq;',';sin;',';ein;',';nlike;',';more;',';less;',';rlike;'),
-			array('` = \'','` != \'','\' and `','\' or `','null','','` LIKE \'','%','`>=\'','`<=\'','` IN (',')','` NOT LIKE \'','`>\'','`<\'','` RLIKE \''),
+			array(';eq;',';neq;',';and;',';or;',';0;',';00;',';like;',';ap;',';moreeq;',';lesseq;',';sin;',';ein;',';nlike;',';more;',';less;',';rlike;',';nrlike;'),
+			array('` = \'','` != \'','\' and `','\' or `','null','','` LIKE \'','%','`>=\'','`<=\'','` IN (',')','` NOT LIKE \'','`>\'','`<\'','` RLIKE \'','` NOT RLIKE \''),
 			'`'.$_GET['where'].'\'') : '';
-
 
 		$this->in = (isset($_GET['in'])) ? str_replace(
 			array(';sin;',';ein;'),
@@ -128,11 +125,16 @@ function v1($table='',$find='',$finds=''){
 
 				if($data === false){
 					$this->resData['status'] = false;
+					$this->resData['data'] = array($table=>[]);
+					$this->resData['message'] = 'Data '.$table;
+					$this->resData['total'] = 0;
 					echo json_encode($this->resData,JSON_PRETTY_PRINT);
 					exit();
 				}
 
-				$this->resData['data'] = $data;
+				$this->resData['data'] = array($table=>$data);
+				$this->resData['message'] = 'Data '.$table;
+				$this->resData['total'] = $this->countAll($this->database,$table,$this->where,$this->limit,$find,$finds,$this->order);
 				echo json_encode($this->resData,JSON_PRETTY_PRINT);
 				exit();
 			}
@@ -180,6 +182,10 @@ private function raw($d='',$sql='')
 {
 	$data = $d->raw($sql);
 	return $data;
+}
+
+private function countAll($d='',$table='',$where='',$limit='',$find='',$finds='',$order=''){
+	return @$d->table($table)->no_cache()->count()->value('')->where($where)->order_by($order)->find_one()->total;
 }
 
 private function dtables($d='',$table='',$where='',$limit='',$find='',$finds='',$order=''){

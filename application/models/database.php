@@ -105,8 +105,10 @@ class database {
 
 	public function value($value_db='')
 	{
-		if($value_db == '*' || $value_db == ''){
+		if($value_db == '*'){
 			$this->value_db = $this->count.$value_db;
+		}elseif($value_db == ''){
+			$this->value_db = $this->count;
 		}else{
 			$value_db = explode(',', $value_db);
 			if($this->show_sqls){
@@ -156,7 +158,7 @@ class database {
 
 	public function count()
 	{
-		$this->count = "COUNT(*) as `total`,";
+		$this->count = "COUNT(*) as `total`";
 		return $this;
 	}
 
