@@ -1,5 +1,9 @@
 # php-rest-api-crud-auto Version 1
 Test In PHP5.6 And 7.1
+Document Index http://youdomain.com/
+
+No Auth Or Token For Rest URL
+You have to do it by yourself.
 
 ## Install Rest API CRUD
 Edit Config in File /application/config/config.php
