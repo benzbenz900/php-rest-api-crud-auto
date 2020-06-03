@@ -60,7 +60,20 @@ class api extends Controller {
 	}
 	public function index($value='')
 	{
-		echo "RESR API";
+		$t = $this->loadView('app/doc');
+		$t->set('title','lnwPHP By cii3.net | PIP');
+		$t->set('actual_link','api/v1');
+
+		$tablell = $this->getlistname($this->database);
+		foreach ($tablell as $key => $value) {
+			foreach($value as $k => $value_arr){
+				$api[$value_arr] = $this->getname($this->database,$value_arr);
+				$value_api[$value_arr] = $this->getfull($this->database,$value_arr)['0']->TABLE_COMMENT;
+			}
+		}
+		$t->set('value_api',$value_api);
+		$t->set('api',$api);
+		$t->render();
 	}
 	
 	
@@ -199,7 +212,7 @@ function get_client_ip() {
 
 public function getname($d='',$table='')
 {
-	$data = $d->raw("SHOW FULL COLUMNS FROM ".$table.";");
+	$data = $d->raw("SHOW FULL COLUMNS FROM `$table`;");
 	return $data;
 }
 
