@@ -124,24 +124,24 @@ const func = async () => {
 interface '.$key.' {
 	status: boolean;
 	data: {';
-		foreach ($value as $key => $value) {
-			echo "\r	".$value->Field.':'.$value->Type;
+		foreach ($value as $key => $values) {
+			echo "\r	".$values->Field.':'.$values->Type;
 		}
 		echo '}[];
 };
 </pre>';
 								
-								foreach ($value as $key => $value) {
-											$value->Default = ($value->Default == '') ? 'None' : '<span class="label label-info">'.$value->Default.'</span>';
-											$value->Key = ($value->Key != '') ? ' -> <span class="label label-success">'.$value->Key.'</span>':'';
-											$value->Extra = ($value->Extra == 'auto_increment') ? ' -> <span class="label label-warning">Auto ID</span>':'';
+								foreach ($value as $key => $values) {
+											$values->Default = ($values->Default == '') ? 'None' : '<span class="label label-info">'.$values->Default.'</span>';
+											$values->Key = ($values->Key != '') ? ' -> <span class="label label-success">'.$values->Key.'</span>':'';
+											$values->Extra = ($values->Extra == 'auto_increment') ? ' -> <span class="label label-warning">Auto ID</span>':'';
 											echo '
 											<div class="col-md-3">
 												<span class="label label-default">
-													Field:</span><code>'.$value->Field.''.$value->Key.''.$value->Extra.'</code><br>
-													Type:<code>'.$value->Type.'</code><br>
-													Default:<code>'.$value->Default.'</code><br>
-													Comment:<code>'.$value->Comment.'</code><hr>
+													Field:</span><code>'.$values->Field.''.$values->Key.''.$values->Extra.'</code><br>
+													Type:<code>'.$values->Type.'</code><br>
+													Default:<code>'.$values->Default.'</code><br>
+													Comment:<code>'.$values->Comment.'</code><hr>
 											</div>';
 									}
 
