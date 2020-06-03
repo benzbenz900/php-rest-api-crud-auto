@@ -36,8 +36,8 @@ class api extends Controller {
 		$this->database->no_cache(true);
 
 		$this->where = (isset($_GET['where'])) ? str_replace(
-			array(';eq;',';neq;',';and;',';or;',';0;',';00;',';like;',';ap;',';moreeq;',';lesseq;',';sin;',';ein;',';nlike;',';more;',';less;'),
-			array('` = \'','` != \'','\' and `','\' or `','null','','` LIKE \'','%','`>=\'','`<=\'','` IN (',')','` NOT LIKE \'','`>\'','`<\''),
+			array(';eq;',';neq;',';and;',';or;',';0;',';00;',';like;',';ap;',';moreeq;',';lesseq;',';sin;',';ein;',';nlike;',';more;',';less;',';rlike;'),
+			array('` = \'','` != \'','\' and `','\' or `','null','','` LIKE \'','%','`>=\'','`<=\'','` IN (',')','` NOT LIKE \'','`>\'','`<\'','` RLIKE \''),
 			'`'.$_GET['where'].'\'') : '';
 
 
@@ -154,7 +154,7 @@ private function dpost($d='',$table='',$where='',$find='',$finds='',$array = arr
 			}
 			return $data->save();
 		}elseif($array['action'] == 'delete'){
-			if($array['token'] == 'V2tkV2MxcFlVbXc9'){
+			if($array['token'] == TOKEN_ACTION){
 				$data = $d->table($table)->no_cache()->value($this->value)->where($where)->del($find,$finds);
 				return $data;
 			}else{

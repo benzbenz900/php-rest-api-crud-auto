@@ -12,4 +12,5 @@ $config['token_session'] = '123456';
 $config['token_pass'] = '123456';
 $config['token_encode'] = false;
 
+define('TOKEN_ACTION_API', '123456789');
 ?>
