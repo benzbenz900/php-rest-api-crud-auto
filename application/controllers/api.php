@@ -34,7 +34,7 @@ class api extends Controller {
 		$this->database->no_cache(true);
 
 		$this->where = (isset($_GET['where'])) ? str_replace(
-			array(';eq;',';neq;',';and;',';or;',';0;',';00;',';like;',';ap;',';moreeq;',';lesseq;',';sin;',';ein;',';nlike;',';more;',';less;',';rlike;',';nrlike;'),
+			array(';eq;',';neq;',';and;',';or;',';null;',';00;',';like;',';ap;',';moreeq;',';lesseq;',';sin;',';ein;',';nlike;',';more;',';less;',';rlike;',';nrlike;'),
 			array('` = \'','` != \'','\' and `','\' or `','null','','` LIKE \'','%','`>=\'','`<=\'','` IN (',')','` NOT LIKE \'','`>\'','`<\'','` RLIKE \'','` NOT RLIKE \''),
 			'`'.$_GET['where'].'\'') : '';
 
